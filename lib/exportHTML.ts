@@ -24,6 +24,20 @@ const COLORS = ['#0E567B', '#4BA2FF', '#00E3FF', '#7EC6DE', '#050B49', '#90C0E7'
 export function generateExportHTML(lots: LotData[]): string {
   const generatedAt = new Date().toLocaleString('es-MX', { dateStyle: 'long', timeStyle: 'short' })
 
+  // Global Y/X bounds for the comparison growth chart
+  const allWeights  = lots.flatMap((l) => l.records.map((r) => r.pesoPromedio))
+  const allPCs      = lots.flatMap((l) => l.records.filter((r) => r.pc !== undefined).map((r) => r.pc as number))
+  const allAges     = lots.flatMap((l) => l.records.map((r) => r.edad))
+  const gAllY       = [...allWeights, ...allPCs]
+  const gRawMin     = gAllY.length > 0 ? Math.min(...gAllY) : 0
+  const gRawMax     = gAllY.length > 0 ? Math.max(...gAllY) : 120
+  const gPad        = (gRawMax - gRawMin) * 0.08
+  const gYMin       = Math.max(0, Math.floor((gRawMin - gPad) / 5) * 5)
+  const gYMax       = Math.ceil((gRawMax + gPad) / 5) * 5
+  const gXMin       = allAges.length > 0 ? Math.max(0, Math.min(...allAges) - 2) : 0
+  const gXMax       = allAges.length > 0 ? Math.max(...allAges) + 2 : 140
+  const growthScaleGlobal = JSON.stringify({ yMin: gYMin, yMax: gYMax, xMin: gXMin, xMax: gXMax })
+
   // Growth chart datasets (all lots + PC reference)
   const growthDatasets = lots.map((lot, i) => ({
     label: `${lot.lote} (${lot.granja})`,
@@ -70,7 +84,22 @@ export function generateExportHTML(lots: LotData[]): string {
     const gdpLabels   = lot.records.filter((r) => r.gdp > 0).map((r) => `Sem ${r.semana}`)
     const gdpValues   = lot.records.filter((r) => r.gdp > 0).map((r) => r.gdp)
     const gdpColors   = gdpValues.map((v) => v > 700 ? '#0E567B' : v >= 400 ? '#D97706' : '#C0062B')
-    const gdpDataJson = JSON.stringify({ labels: gdpLabels, values: gdpValues, colors: gdpColors })
+    const gdpMax      = gdpValues.length > 0 ? Math.max(...gdpValues) : 900
+    const gdpYMax     = Math.ceil(Math.max(gdpMax * 1.18, 800) / 100) * 100
+    const gdpDataJson = JSON.stringify({ labels: gdpLabels, values: gdpValues, colors: gdpColors, yMax: gdpYMax })
+
+    const weights     = lot.records.map((r) => r.pesoPromedio)
+    const pcs         = lot.records.filter((r) => r.pc !== undefined).map((r) => r.pc as number)
+    const allY        = [...weights, ...pcs]
+    const rawMin      = allY.length > 0 ? Math.min(...allY) : 0
+    const rawMax      = allY.length > 0 ? Math.max(...allY) : 120
+    const yPad        = (rawMax - rawMin) * 0.08
+    const growthYMin  = Math.max(0, Math.floor((rawMin - yPad) / 5) * 5)
+    const growthYMax  = Math.ceil((rawMax + yPad) / 5) * 5
+    const xValues     = lot.records.map((r) => r.edad)
+    const growthXMin  = xValues.length > 0 ? Math.max(0, Math.min(...xValues) - 2) : 0
+    const growthXMax  = xValues.length > 0 ? Math.max(...xValues) + 2 : 140
+    const growthScaleJson = JSON.stringify({ yMin: growthYMin, yMax: growthYMax, xMin: growthXMin, xMax: growthXMax })
 
     const tableRows = lot.records.map((r, i) => {
       const isFirst = i === 0
@@ -131,7 +160,9 @@ export function generateExportHTML(lots: LotData[]): string {
 
       <div class="chart-box" style="margin-bottom:1.5rem">
         <h3>GDP Semanal (g/día)</h3>
-        <canvas id="${gdpChartId}" height="220"></canvas>
+        <div style="position:relative;height:260px">
+          <canvas id="${gdpChartId}"></canvas>
+        </div>
       </div>
 
       <h3 style="margin:0 0 0.75rem;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#4A4A68">
@@ -163,28 +194,40 @@ export function generateExportHTML(lots: LotData[]): string {
             type: 'bar',
             data: {
               labels: d.labels,
-              datasets: [{ label: 'GDP (g/día)', data: d.values, backgroundColor: d.colors, borderRadius: 4 }]
+              datasets: [{ label: 'GDP (g/día)', data: d.values, backgroundColor: d.colors, borderRadius: 5, borderSkipped: false }]
             },
             options: {
               responsive: true,
+              maintainAspectRatio: false,
               plugins: {
                 legend: { display: false },
                 tooltip: { callbacks: { label: function(c) { return c.parsed.y + ' g/día'; } } }
               },
               scales: {
-                y: { beginAtZero: true, grid: { color: '#D3DCDF' }, title: { display: true, text: 'g/día', color: '#4A4A68' } },
-                x: { grid: { display: false } }
+                y: {
+                  beginAtZero: true,
+                  max: d.yMax,
+                  grid: { color: '#E8ECEE' },
+                  ticks: { color: '#4A4A68', font: { size: 11 } },
+                  title: { display: true, text: 'g/día', color: '#4A4A68', font: { size: 11 } }
+                },
+                x: {
+                  grid: { display: false },
+                  ticks: { color: '#4A4A68', font: { size: 11 } }
+                }
               }
             },
             plugins: [{
               afterDraw: function(chart) {
                 var c2 = chart.ctx, ys = chart.scales.y;
+                if (ys.max < 700) return;
                 var yp = ys.getPixelForValue(700);
                 c2.save();
                 c2.strokeStyle = '#4BA2FF'; c2.lineWidth = 1.5; c2.setLineDash([5,4]);
                 c2.beginPath(); c2.moveTo(chart.chartArea.left, yp); c2.lineTo(chart.chartArea.right, yp); c2.stroke();
-                c2.fillStyle = '#4BA2FF'; c2.font = '11px Roboto, sans-serif';
-                c2.fillText('Meta: 700 g/día', chart.chartArea.left + 4, yp - 4);
+                c2.setLineDash([]);
+                c2.fillStyle = '#4BA2FF'; c2.font = '600 11px Roboto, sans-serif';
+                c2.fillText('Meta: 700 g/día', chart.chartArea.left + 6, yp - 5);
                 c2.restore();
               }
             }]
@@ -265,7 +308,9 @@ export function generateExportHTML(lots: LotData[]): string {
   <div class="container">
     <div class="growth-section">
       <h2>Curva de Crecimiento — Comparativa de Lotes</h2>
-      <canvas id="growthChart" height="280"></canvas>
+      <div style="position:relative;height:340px">
+        <canvas id="growthChart"></canvas>
+      </div>
     </div>
 
     ${lotSections}
@@ -276,20 +321,33 @@ export function generateExportHTML(lots: LotData[]): string {
   <script>
     (function() {
       var ds = ${JSON.stringify(growthDatasets)};
+      var sc = ${growthScaleGlobal};
       var ctx = document.getElementById('growthChart').getContext('2d');
       new Chart(ctx, {
         type: 'line',
         data: { datasets: ds },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           parsing: false,
           plugins: {
-            legend: { position: 'top', labels: { usePointStyle: true, padding: 14, font: { size: 12 } } },
+            legend: { position: 'top', labels: { usePointStyle: true, padding: 16, font: { size: 12 } } },
             tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.y.toFixed(1) + ' kg'; } } }
           },
           scales: {
-            x: { type: 'linear', title: { display: true, text: 'Edad (días)', color: '#4A4A68' }, grid: { color: '#D3DCDF' } },
-            y: { title: { display: true, text: 'Peso (kg)', color: '#4A4A68' }, grid: { color: '#D3DCDF' } }
+            x: {
+              type: 'linear',
+              min: sc.xMin, max: sc.xMax,
+              grid: { color: '#E8ECEE' },
+              ticks: { color: '#4A4A68', font: { size: 11 } },
+              title: { display: true, text: 'Edad (días)', color: '#4A4A68', font: { size: 11 } }
+            },
+            y: {
+              min: sc.yMin, max: sc.yMax,
+              grid: { color: '#E8ECEE' },
+              ticks: { color: '#4A4A68', font: { size: 11 } },
+              title: { display: true, text: 'Peso (kg)', color: '#4A4A68', font: { size: 11 } }
+            }
           }
         }
       });
