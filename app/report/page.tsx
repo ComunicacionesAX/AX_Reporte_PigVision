@@ -117,7 +117,7 @@ export default function ReportPage() {
       >
         <div className="max-w-7xl mx-auto px-5 py-3 flex items-center gap-3 justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={() => router.push('/')} className="ax-btn-secondary" style={{ padding: '0.375rem 0.875rem' }}>
+            <button onClick={() => router.push('/')} className="ax-btn-ghost">
               <ArrowLeft size={14} /> Volver
             </button>
             <div className="hidden sm:block w-px h-5 bg-white opacity-15" />
