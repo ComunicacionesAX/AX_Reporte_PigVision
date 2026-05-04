@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+/* ─── Asimetrix Design System Tokens ─────────────────────────────────────── */
+:root {
+  --ax-header:        #040939;
+  --ax-primary:       #0E567B;
+  --ax-primary-dark:  #050B49;
+  --ax-primary-light: #90C0E7;
+  --ax-accent:        #4BA2FF;
+  --ax-aqua:          #00E3FF;
+  --ax-aqua-gray:     #7EC6DE;
+  --ax-text:          #181934;
+  --ax-text-light:    #4A4A68;
+  --ax-bg:            #FFFFFF;
+  --ax-bg-alt:        #F8F9FA;
+  --ax-bg-neutral:    #E6E6E6;
+  --ax-border:        #D3DCDF;
+  --ax-error:         #C0062B;
+  --ax-warning:       #FFD600;
+  --ax-success:       #4BA2FF;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Roboto', 'SF Pro Display', Helvetica, system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.375;
+    letter-spacing: -0.3px;
+    color: var(--ax-text);
+    background: var(--ax-bg-alt);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', 'SF Pro Display', Helvetica, system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--ax-text);
+    letter-spacing: -0.6px;
+  }
+
+  h1 { font-size: 40px; line-height: 40px; }
+  h2 { font-size: 32px; line-height: 32px; }
+  h3 { font-size: 28px; line-height: 30px; }
+  h4 { font-size: 24px; line-height: 26px; letter-spacing: -0.45px; }
+  h5 { font-size: 20px; line-height: 24px; letter-spacing: -0.38px; }
+  h6 { font-size: 18px; line-height: 23px; letter-spacing: -0.3px; }
+}
+
+/* ─── Component utilities ─────────────────────────────────────────────────── */
+@layer components {
+
+  /* Card */
+  .ax-card {
+    background: var(--ax-bg);
+    border: 1px solid var(--ax-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Primary button */
+  .ax-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--ax-header);
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s ease, opacity 0.18s ease;
+  }
+  .ax-btn-primary:hover { background: var(--ax-primary-dark); }
+  .ax-btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Secondary / ghost button */
+  .ax-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--ax-text);
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    border: 1px solid var(--ax-border);
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease;
+  }
+  .ax-btn-secondary:hover {
+    background: var(--ax-bg-alt);
+    border-color: var(--ax-accent);
+    color: var(--ax-primary);
+  }
+
+  /* Accent button (blue) */
+  .ax-btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--ax-accent);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s ease;
+  }
+  .ax-btn-accent:hover { background: var(--ax-primary); }
+  .ax-btn-accent:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Badge */
+  .ax-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.17px;
+    background: var(--ax-bg-alt);
+    color: var(--ax-text-light);
+  }
+
+  /* Tag (dark) */
+  .ax-tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: var(--ax-header);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.17px;
+  }
+
+  /* Info box */
+  .ax-info-box {
+    background: #F0F7FB;
+    border-left: 4px solid var(--ax-accent);
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+  }
+
+  /* Small text helpers */
+  .ax-small   { font-size: 14px; line-height: 18px; letter-spacing: -0.2px; }
+  .ax-xsmall  { font-size: 12px; line-height: 16px; letter-spacing: -0.17px; }
+
+  /* Table header style */
+  .ax-th {
+    @apply px-3 py-3 text-left font-semibold whitespace-nowrap;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ax-text-light);
+    background: var(--ax-bg-alt);
+  }
+  .ax-th-right { @apply ax-th text-right; }
+
+  /* Tab active/inactive */
+  .ax-tab-active {
+    background: white;
+    color: var(--ax-primary);
+    border-bottom: 2px solid var(--ax-accent);
+  }
+  .ax-tab-inactive {
+    color: var(--ax-text-light);
+  }
+  .ax-tab-inactive:hover {
+    color: var(--ax-text);
+    background: var(--ax-border);
+  }
+}

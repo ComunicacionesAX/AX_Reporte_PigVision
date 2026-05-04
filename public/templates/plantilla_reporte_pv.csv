@@ -1,0 +1,65 @@
+# Plantilla Reporte PV | PigVision — Asimetrix
+# Columnas requeridas: Compania, Granja, Lote, Fecha, Semana, Edad_dias, Peso_Promedio_kg, Cabezas, PC_Referencia_kg
+# El GDP se calcula automáticamente a partir de los pesos consecutivos.
+# Formato de fecha: YYYY-MM-DD | Decimales con punto (.) | PC_Referencia_kg es opcional
+Compania,Granja,Lote,Fecha,Semana,Edad_dias,Peso_Promedio_kg,Cabezas,PC_Referencia_kg
+AgroPremex,Granja Norte,Lote-2024-001,2024-01-08,1,7,2.1,1200,2.2
+AgroPremex,Granja Norte,Lote-2024-001,2024-01-15,2,14,3.8,1197,4.0
+AgroPremex,Granja Norte,Lote-2024-001,2024-01-22,3,21,6.2,1194,6.5
+AgroPremex,Granja Norte,Lote-2024-001,2024-01-29,4,28,9.5,1189,10.0
+AgroPremex,Granja Norte,Lote-2024-001,2024-02-05,5,35,13.8,1184,14.5
+AgroPremex,Granja Norte,Lote-2024-001,2024-02-12,6,42,18.9,1180,19.8
+AgroPremex,Granja Norte,Lote-2024-001,2024-02-19,7,49,24.5,1176,25.7
+AgroPremex,Granja Norte,Lote-2024-001,2024-02-26,8,56,30.8,1172,32.3
+AgroPremex,Granja Norte,Lote-2024-001,2024-03-04,9,63,37.4,1168,39.3
+AgroPremex,Granja Norte,Lote-2024-001,2024-03-11,10,70,44.1,1165,46.3
+AgroPremex,Granja Norte,Lote-2024-001,2024-03-18,11,77,51.2,1161,53.8
+AgroPremex,Granja Norte,Lote-2024-001,2024-03-25,12,84,57.8,1158,60.7
+AgroPremex,Granja Norte,Lote-2024-001,2024-04-01,13,91,64.1,1155,67.3
+AgroPremex,Granja Norte,Lote-2024-001,2024-04-08,14,98,70.0,1152,73.5
+AgroPremex,Granja Norte,Lote-2024-001,2024-04-15,15,105,75.5,1149,79.3
+AgroPremex,Granja Norte,Lote-2024-001,2024-04-22,16,112,80.5,1147,84.5
+AgroPremex,Granja Norte,Lote-2024-001,2024-04-29,17,119,85.1,1144,89.4
+AgroPremex,Granja Norte,Lote-2024-001,2024-05-06,18,126,89.2,1142,93.7
+AgroPremex,Granja Norte,Lote-2024-001,2024-05-13,19,133,93.0,1140,97.7
+AgroPremex,Granja Norte,Lote-2024-001,2024-05-20,20,140,96.4,1138,101.2
+AgroPremex,Granja Norte,Lote-2024-002,2024-03-04,1,7,2.3,1150,2.4
+AgroPremex,Granja Norte,Lote-2024-002,2024-03-11,2,14,4.1,1148,4.3
+AgroPremex,Granja Norte,Lote-2024-002,2024-03-18,3,21,6.6,1146,6.9
+AgroPremex,Granja Norte,Lote-2024-002,2024-03-25,4,28,10.0,1143,10.5
+AgroPremex,Granja Norte,Lote-2024-002,2024-04-01,5,35,14.5,1140,15.2
+AgroPremex,Granja Norte,Lote-2024-002,2024-04-08,6,42,19.8,1137,20.8
+AgroPremex,Granja Norte,Lote-2024-002,2024-04-15,7,49,25.7,1134,27.0
+AgroPremex,Granja Norte,Lote-2024-002,2024-04-22,8,56,32.3,1131,33.9
+AgroPremex,Granja Norte,Lote-2024-002,2024-04-29,9,63,39.1,1128,41.1
+AgroPremex,Granja Norte,Lote-2024-002,2024-05-06,10,70,46.1,1125,48.4
+AgroPremex,Granja Norte,Lote-2024-002,2024-05-13,11,77,53.4,1122,56.1
+AgroPremex,Granja Norte,Lote-2024-002,2024-05-20,12,84,60.2,1120,63.2
+AgroPremex,Granja Norte,Lote-2024-002,2024-05-27,13,91,66.8,1117,70.1
+AgroPremex,Granja Norte,Lote-2024-002,2024-06-03,14,98,73.0,1115,76.7
+AgroPremex,Granja Norte,Lote-2024-002,2024-06-10,15,105,78.8,1113,82.7
+AgroPremex,Granja Norte,Lote-2024-002,2024-06-17,16,112,84.0,1111,88.2
+AgroPremex,Granja Norte,Lote-2024-002,2024-06-24,17,119,88.8,1109,93.2
+AgroPremex,Granja Norte,Lote-2024-002,2024-07-01,18,126,93.1,1107,97.8
+AgroPremex,Granja Norte,Lote-2024-002,2024-07-08,19,133,97.0,1105,101.9
+AgroPremex,Granja Norte,Lote-2024-002,2024-07-15,20,140,100.5,1103,105.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-05-06,1,7,1.9,980,2.0
+AgroPremex,Granja Sur,Lote-2024-003,2024-05-13,2,14,3.5,977,3.7
+AgroPremex,Granja Sur,Lote-2024-003,2024-05-20,3,21,5.8,973,6.1
+AgroPremex,Granja Sur,Lote-2024-003,2024-05-27,4,28,8.9,968,9.3
+AgroPremex,Granja Sur,Lote-2024-003,2024-06-03,5,35,13.0,963,13.7
+AgroPremex,Granja Sur,Lote-2024-003,2024-06-10,6,42,17.9,959,18.8
+AgroPremex,Granja Sur,Lote-2024-003,2024-06-17,7,49,23.3,955,24.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-06-24,8,56,29.3,951,30.8
+AgroPremex,Granja Sur,Lote-2024-003,2024-07-01,9,63,35.7,947,37.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-07-08,10,70,42.1,944,44.2
+AgroPremex,Granja Sur,Lote-2024-003,2024-07-15,11,77,49.0,940,51.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-07-22,12,84,55.4,937,58.2
+AgroPremex,Granja Sur,Lote-2024-003,2024-07-29,13,91,61.4,933,64.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-08-05,14,98,67.1,930,70.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-08-12,15,105,72.3,927,75.9
+AgroPremex,Granja Sur,Lote-2024-003,2024-08-19,16,112,77.1,924,81.0
+AgroPremex,Granja Sur,Lote-2024-003,2024-08-26,17,119,81.5,921,85.6
+AgroPremex,Granja Sur,Lote-2024-003,2024-09-02,18,126,85.4,919,89.7
+AgroPremex,Granja Sur,Lote-2024-003,2024-09-09,19,133,89.0,916,93.5
+AgroPremex,Granja Sur,Lote-2024-003,2024-09-16,20,140,92.2,914,96.8
