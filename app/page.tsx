@@ -136,12 +136,8 @@ export default function HomePage() {
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-3"
         style={{ background: 'var(--ax-header)' }}
       >
-        <div className="flex items-center gap-3">
-          <img src="/logo-asimetrix.png" alt="Asimetrix" style={{ height: 32, width: 'auto' }} />
-          <div className="hidden sm:block w-px h-5 bg-white opacity-20" />
-          <span className="hidden sm:block text-white opacity-60 text-sm font-light tracking-wide">
-            PigVision™
-          </span>
+        <div className="flex items-center">
+          <img src="/logo-asimetrix-full.svg" alt="Asimetrix" style={{ height: 30, width: 'auto' }} />
         </div>
         <span className="text-white opacity-50 text-xs">V.01 · 2025</span>
       </header>

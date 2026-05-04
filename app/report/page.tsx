@@ -121,7 +121,7 @@ export default function ReportPage() {
               <ArrowLeft size={14} /> Volver
             </button>
             <div className="hidden sm:block w-px h-5 bg-white opacity-15" />
-            <img src="/logo-asimetrix.png" alt="Asimetrix" className="hidden sm:block" style={{ height: 28, width: 'auto' }} />
+            <img src="/logo-asimetrix-full.svg" alt="Asimetrix" className="hidden sm:block" style={{ height: 26, width: 'auto' }} />
             <div className="hidden sm:block w-px h-5 bg-white opacity-15" />
             <div className="hidden sm:block">
               <p className="font-semibold" style={{ color: 'white', fontSize: 14, letterSpacing: '-0.2px' }}>
